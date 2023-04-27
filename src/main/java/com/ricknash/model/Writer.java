@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @RequiredArgsConstructor
-public class Writer {
+public class Writer implements Identifiable {
 
     @NonNull
     private Integer id;
@@ -19,4 +19,5 @@ public class Writer {
     private String lastName;
     @NonNull
     private List<Post> posts;
+    private PostStatus status = PostStatus.ACTIVE;
 }

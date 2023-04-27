@@ -3,17 +3,24 @@ package com.ricknash.controller;
 import com.ricknash.model.Label;
 import com.ricknash.model.Post;
 import com.ricknash.model.Writer;
+import com.ricknash.repository.implementations.AbstractRepository;
+import com.ricknash.repository.implementations.GsonLabelRepositoryImpl;
+import com.ricknash.repository.implementations.GsonPostRepositoryImpl;
 import com.ricknash.repository.implementations.GsonWriterRepositoryImpl;
-import com.ricknash.repository.interfaces.WriterRepository;
+import com.ricknash.repository.interfaces.LabelRepository;
+import com.ricknash.repository.interfaces.PostRepository;
 
 import java.time.OffsetDateTime;
 import java.util.Collections;
+import java.util.List;
 
-import static com.ricknash.util.Constants.WRITERS;
+import static com.ricknash.util.Constants.*;
 
 public class WriterController {
 
-    WriterRepository writerRepository = new GsonWriterRepositoryImpl(WRITERS);
+    AbstractRepository<Writer> writerRepository = new GsonWriterRepositoryImpl(WRITERS);
+    AbstractRepository<Post> postRepository = new GsonPostRepositoryImpl(POSTS);
+    AbstractRepository<Label> labelRepository = new GsonLabelRepositoryImpl(LABELS);
 
     public void saveWriter() {
 
@@ -41,8 +48,29 @@ public class WriterController {
         writerRepository.insert(writer3);
         writerRepository.insert(writer4);
 
-        System.out.println(writerRepository.getAll());
+        postRepository.insert(post1);
+        postRepository.insert(post2);
+        postRepository.insert(post3);
+        postRepository.insert(post4);
+
+        labelRepository.insert(label1);
+        labelRepository.insert(label2);
+        labelRepository.insert(label3);
+        labelRepository.insert(label4);
+
+
+        List<Writer> writers = writerRepository.getAll();
+        System.out.println(writers.get(0).getId());
+        System.out.println(writers.get(0).getFirstName());
+        System.out.println(writers.get(0).getLastName());
+        System.out.println(writers.get(0).getStatus());
+        List<Post> posts = postRepository.getAll();
+        System.out.println(posts);
+        List<Label> labels = labelRepository.getAll();
+        System.out.println(labels.toString());
         System.out.println();
+
+        postRepository.deleteById(post1.getId());
     }
 
 }

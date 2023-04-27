@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @RequiredArgsConstructor
-public class Post {
+public class Post implements Identifiable {
 
     @NonNull
     private Integer id;
@@ -20,5 +20,6 @@ public class Post {
     private String updated;
     @NonNull
     private List<Label> labels;
+    private PostStatus status = PostStatus.ACTIVE;
 
 }
