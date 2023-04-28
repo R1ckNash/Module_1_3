@@ -11,13 +11,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Writer implements Identifiable {
 
-    @NonNull
     private Integer id;
+
     @NonNull
     private String firstName;
+
     @NonNull
     private String lastName;
+
     @NonNull
     private List<Post> posts;
+
     private PostStatus status = PostStatus.ACTIVE;
 }

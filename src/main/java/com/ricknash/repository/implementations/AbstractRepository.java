@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class AbstractRepository<T> implements GenericRepository<T, Integer> {
@@ -39,6 +40,13 @@ public abstract class AbstractRepository<T> implements GenericRepository<T, Inte
         save(entities);
     }
 
+    public void update(T oldEntity, T newEntity) {
+        List<T> entities = getAll();
+        int index = entities.indexOf(oldEntity);
+        entities.set(index, newEntity);
+        save(entities);
+    }
+
     private void save(List<T> entities) {
         try {
             String data = objectMapper.toJson(entities);
@@ -55,6 +63,17 @@ public abstract class AbstractRepository<T> implements GenericRepository<T, Inte
         } catch (IOException e) {
             System.err.println("Error while getting all: " + e);
             return new ArrayList<>();
+        }
+    }
+
+    public T getById(Integer id) throws RuntimeException {
+        Optional<T> entity = getAll().stream()
+                .filter(d -> ((Identifiable) d).getId().equals(id))
+                .findFirst();
+        if (entity.isPresent()) {
+            return entity.get();
+        } else {
+            throw new RuntimeException("There is no label with id - " + id);
         }
     }
 

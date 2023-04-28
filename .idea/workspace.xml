@@ -4,21 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c784a037-26b1-4818-91b2-fe309cbbc4ff" name="Changes" comment="add design to readme">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Identifiable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/AbstractRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/GsonLabelRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/GsonPostRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/LabelRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/PostRepository.java" afterDir="false" />
+    <list default="true" id="c784a037-26b1-4818-91b2-fe309cbbc4ff" name="Changes" comment="add more repositories + abstract layer">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/LabelController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/PostController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/view/LabelView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/view/PostView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/WriterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/WriterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Identifiable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Identifiable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Label.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Label.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/model/PostStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/PostStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Writer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/GsonWriterRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/GsonWriterRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/GenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/GenericRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/WriterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/WriterRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/AbstractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/AbstractRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/view/WriterView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/view/WriterView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682554848645</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add more repositories + abstract layer">
+      <created>1682587124702</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682587124702</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -183,6 +191,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
     <MESSAGE value="add design to readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="add design to readme" />
+    <MESSAGE value="add more repositories + abstract layer" />
+    <option name="LAST_COMMIT_MESSAGE" value="add more repositories + abstract layer" />
   </component>
 </project>
