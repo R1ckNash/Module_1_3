@@ -1,8 +1,12 @@
 package com.ricknash.controller;
 
+import java.util.List;
+
 public interface Controller<T> {
 
-    void create(String name);
+    default void create(String name) {};
+
+    default void create(String content, List<String> labels) {};
 
     void getAll();
 

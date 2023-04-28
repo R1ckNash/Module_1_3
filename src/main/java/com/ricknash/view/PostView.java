@@ -1,5 +1,6 @@
 package com.ricknash.view;
 
+import com.ricknash.model.Label;
 import com.ricknash.model.Post;
 import java.util.List;
 
@@ -17,10 +18,17 @@ public class PostView {
         System.out.println("----------------");
         System.out.println("Id: " + post.getId());
         System.out.println("Content: " + post.getContent());
+        System.out.print("Labels: ");
+        showLabels(post);
+        System.out.println();
         System.out.println("Created: " + post.getCreated());
         System.out.println("Updated: " + post.getUpdated());
         System.out.println("Status: " + post.getStatus());
         System.out.println("----------------");
         System.out.println();
+    }
+
+    public void showLabels(Post post) {
+        post.getLabels().forEach(l -> System.out.print(l.getName() + " "));
     }
 }

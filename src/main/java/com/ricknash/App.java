@@ -6,25 +6,25 @@ import com.ricknash.controller.PostController;
 import com.ricknash.controller.WriterController;
 import com.ricknash.model.Label;
 import com.ricknash.model.Post;
+import com.ricknash.model.Writer;
 import com.ricknash.repository.implementations.GsonLabelRepositoryImpl;
 import com.ricknash.repository.implementations.GsonPostRepositoryImpl;
+import com.ricknash.repository.implementations.GsonWriterRepositoryImpl;
 import com.ricknash.view.LabelView;
 import com.ricknash.view.PostView;
+import com.ricknash.view.WriterView;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static com.ricknash.util.Constants.LABELS;
-import static com.ricknash.util.Constants.POSTS;
+import static com.ricknash.util.Constants.*;
 
-/**
- * Hello world!
- */
 public class App {
 
     static Scanner scanner = new Scanner(System.in);
     static boolean exit = false;
-    static WriterController wc = new WriterController();
+    static Controller<Writer> wc = new WriterController(new GsonWriterRepositoryImpl(WRITERS), new WriterView());
     static Controller<Post> pc = new PostController(new GsonPostRepositoryImpl(POSTS), new PostView());
     static Controller<Label> lc = new LabelController(new GsonLabelRepositoryImpl(LABELS), new LabelView());
 
@@ -42,6 +42,7 @@ public class App {
             switch (s) {
                 case "1":
                 case "2":
+                    chooseActionPost();
                 case "3":
                     chooseActionLabel();
                 case "0": exit = true;
@@ -53,7 +54,7 @@ public class App {
         System.out.println("1. GET\n2. POST\n3. UPDATE\n4. DELETE");
         switch (scanner.nextLine()) {
             case "1":
-                whichGet();
+                whichGetLabel();
                 welcome();
                 break;
             case "2":
@@ -78,7 +79,7 @@ public class App {
         System.out.println();
     }
 
-    public static void whichGet() {
+    public static void whichGetLabel() {
         System.out.println("1. GET ALL\n2. GET BY ID");
         String id = scanner.nextLine();
         if (Objects.equals(id, "1")) {
@@ -95,8 +96,8 @@ public class App {
 
     public static void getLabelById() {
         System.out.println("Enter id");
-        String name = scanner.nextLine();
-        lc.getByIdAndPrint(name);
+        String id = scanner.nextLine();
+        lc.getByIdAndPrint(id);
         System.out.println();
     }
 
@@ -115,7 +116,80 @@ public class App {
         System.out.println("Enter id");
         String id = scanner.nextLine();
         lc.delete(id);
+        System.out.println();
     }
 
+
+
+    public static void chooseActionPost() {
+        System.out.println("1. GET\n2. POST\n3. UPDATE\n4. DELETE");
+        switch (scanner.nextLine()) {
+            case "1":
+                whichGetPost();
+                welcome();
+                break;
+            case "2":
+                createPost();
+                welcome();
+                break;
+            case "3":
+                updatePost();
+                welcome();
+                break;
+            case "4":
+                deletePost();
+                welcome();
+                break;
+        }
+    }
+
+    public static void createPost() {
+        System.out.println("Enter content");
+        String content = scanner.nextLine();
+        System.out.println("Enter labels using \",\"");
+        List<String> labels = List.of(scanner.nextLine().split(",", 0));
+        pc.create(content, labels);
+        System.out.println();
+    }
+
+    public static void whichGetPost() {
+        System.out.println("1. GET ALL\n2. GET BY ID");
+        String id = scanner.nextLine();
+        if (Objects.equals(id, "1")) {
+            getPosts();
+        } else {
+            getPostById();
+        }
+    }
+
+    public static void getPosts() {
+        pc.getAll();
+        System.out.println();
+    }
+
+    public static void getPostById() {
+        System.out.println("Enter id");
+        String id = scanner.nextLine();
+        pc.getByIdAndPrint(id);
+        System.out.println();
+    }
+
+    public static void updatePost() {
+        System.out.println("Enter id");
+        String id = scanner.nextLine();
+        System.out.println("Enter content");
+        String content = scanner.nextLine();
+        System.out.println("Enter status");
+        String status = scanner.nextLine();
+        pc.update(id, content, status);
+        System.out.println();
+    }
+
+    public static void deletePost() {
+        System.out.println("Enter id");
+        String id = scanner.nextLine();
+        pc.delete(id);
+        System.out.println();
+    }
 }
 
