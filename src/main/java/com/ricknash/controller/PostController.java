@@ -14,6 +14,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
 @RequiredArgsConstructor
 public class PostController implements Controller<Post> {
 
@@ -21,20 +22,26 @@ public class PostController implements Controller<Post> {
     private AbstractRepository<Post> postRepository;
     @NonNull
     private PostView postView;
+    @NonNull
+    private Controller<Label> lc;
 
     @Override
-    public void create(String content, List<String> labels) {
+    public Post create(String content, List<String> labels) {
         String created = OffsetDateTime.now().toString();
         List<Label> newLabels = labels.stream()
-                .map(Label::new)
+                .map(lc::create)
                 .collect(Collectors.toList());
 
         Post post = new Post(content, created, created, newLabels);
         Integer id = UUID.randomUUID().hashCode();
         post.setId(id);
         postRepository.insert(post);
+        return post;
+    }
 
-        postView.updateView(post);
+    @Override
+    public void createAndUpdateView(String content, List<String> labels) {
+        postView.updateView(create(content, labels));
     }
 
     @Override
@@ -44,7 +51,7 @@ public class PostController implements Controller<Post> {
     }
 
     @Override
-    public void getByIdAndPrint(String id) {
+    public void getByIdAndUpdateView(String id) {
         Post post = getById(id);
         if (Objects.isNull(post)) {
             return;
@@ -57,7 +64,7 @@ public class PostController implements Controller<Post> {
         try {
             return postRepository.getById(Integer.valueOf(id));
         } catch (RuntimeException e) {
-            System.err.println("Exception: " + e);
+            postView.updateView("Exception: " + e);
             return null;
         }
     }
@@ -65,10 +72,16 @@ public class PostController implements Controller<Post> {
     @Override
     public void update(String id, String content, String status) {
         Post post = getById(id);
-        if (Objects.isNull(post)) return;
+        if (Objects.isNull(post)) {
+            postView.updateView("There is no post with id: " + id);
+            return;
+        }
 
         PostStatus newStatus = PostStatus.fromValue(status);
-        if (newStatus == null) return;
+        if (newStatus == null) {
+            postView.updateView("Status in null");
+            return;
+        }
 
         String update = OffsetDateTime.now().toString();
 
@@ -80,7 +93,6 @@ public class PostController implements Controller<Post> {
                 newStatus);
 
         postRepository.update(post, updatedPost);
-
         postView.updateView(updatedPost);
     }
 
@@ -94,7 +106,6 @@ public class PostController implements Controller<Post> {
         postRepository.deleteById(post.getId());
         post.setStatus(PostStatus.DELETED);
         postRepository.insert(post);
-
         postView.updateView("Post was deleted");
     }
 }

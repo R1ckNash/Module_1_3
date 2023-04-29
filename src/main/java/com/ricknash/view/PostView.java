@@ -1,6 +1,5 @@
 package com.ricknash.view;
 
-import com.ricknash.model.Label;
 import com.ricknash.model.Post;
 import java.util.List;
 

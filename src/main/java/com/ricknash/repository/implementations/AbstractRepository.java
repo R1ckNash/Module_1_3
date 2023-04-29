@@ -73,7 +73,7 @@ public abstract class AbstractRepository<T> implements GenericRepository<T, Inte
         if (entity.isPresent()) {
             return entity.get();
         } else {
-            throw new RuntimeException("There is no entity with id - " + id);
+            throw new RuntimeException("There is no entity with id: " + id);
         }
     }
 

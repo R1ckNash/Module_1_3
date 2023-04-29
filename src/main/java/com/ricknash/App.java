@@ -24,23 +24,23 @@ public class App {
 
     static Scanner scanner = new Scanner(System.in);
     static boolean exit = false;
-    static Controller<Writer> wc = new WriterController(new GsonWriterRepositoryImpl(WRITERS), new WriterView());
-    static Controller<Post> pc = new PostController(new GsonPostRepositoryImpl(POSTS), new PostView());
     static Controller<Label> lc = new LabelController(new GsonLabelRepositoryImpl(LABELS), new LabelView());
-
+    static Controller<Post> pc = new PostController(new GsonPostRepositoryImpl(POSTS), new PostView(), lc);
+    static Controller<Writer> wc = new WriterController(new GsonWriterRepositoryImpl(WRITERS), new WriterView(), pc);
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        welcome();
+        run();
     }
 
-    public static void welcome() {
+    public static void run() {
         while (!exit) {
             System.out.println("Please choose number");
             System.out.println("1. Writer\n2. Post\n3. Label\n0. quit");
             String s = scanner.nextLine();
             switch (s) {
                 case "1":
+                    chooseActionWriter();
                 case "2":
                     chooseActionPost();
                 case "3":
@@ -50,32 +50,41 @@ public class App {
         }
     }
 
+    // LABEL
+
     public static void chooseActionLabel() {
-        System.out.println("1. GET\n2. POST\n3. UPDATE\n4. DELETE");
-        switch (scanner.nextLine()) {
-            case "1":
-                whichGetLabel();
-                welcome();
-                break;
-            case "2":
-                createLabel();
-                welcome();
-                break;
-            case "3":
-                updateLabel();
-                welcome();
-                break;
-            case "4":
-                deleteLabel();
-                welcome();
-                break;
+        while (!exit) {
+            System.out.println("1. GET\n2. POST\n3. UPDATE\n4. DELETE\n0. BACK");
+            switch (scanner.nextLine()) {
+                case "1":
+                    whichGetLabel();
+                    run();
+                    break;
+                case "2":
+                    createLabel();
+                    run();
+                    break;
+                case "3":
+                    updateLabel();
+                    run();
+                    break;
+                case "4":
+                    deleteLabel();
+                    run();
+                    break;
+                case"0":
+                    run();
+                    break;
+                default:
+                    System.out.println("Sorry, try again");
+            }
         }
     }
 
     public static void createLabel() {
         System.out.println("Enter name");
         String name = scanner.nextLine();
-        lc.create(name);
+        lc.createAndUpdateView(name);
         System.out.println();
     }
 
@@ -97,7 +106,7 @@ public class App {
     public static void getLabelById() {
         System.out.println("Enter id");
         String id = scanner.nextLine();
-        lc.getByIdAndPrint(id);
+        lc.getByIdAndUpdateView(id);
         System.out.println();
     }
 
@@ -119,27 +128,34 @@ public class App {
         System.out.println();
     }
 
-
+    // POST
 
     public static void chooseActionPost() {
-        System.out.println("1. GET\n2. POST\n3. UPDATE\n4. DELETE");
-        switch (scanner.nextLine()) {
-            case "1":
-                whichGetPost();
-                welcome();
-                break;
-            case "2":
-                createPost();
-                welcome();
-                break;
-            case "3":
-                updatePost();
-                welcome();
-                break;
-            case "4":
-                deletePost();
-                welcome();
-                break;
+        while (!exit) {
+            System.out.println("1. GET\n2. POST\n3. UPDATE\n4. DELETE\n0. BACK");
+            switch (scanner.nextLine()) {
+                case "1":
+                    whichGetPost();
+                    run();
+                    break;
+                case "2":
+                    createPost();
+                    run();
+                    break;
+                case "3":
+                    updatePost();
+                    run();
+                    break;
+                case "4":
+                    deletePost();
+                    run();
+                    break;
+                case"0":
+                    run();
+                    break;
+                default:
+                    System.out.println("Sorry, try again");
+            }
         }
     }
 
@@ -148,7 +164,7 @@ public class App {
         String content = scanner.nextLine();
         System.out.println("Enter labels using \",\"");
         List<String> labels = List.of(scanner.nextLine().split(",", 0));
-        pc.create(content, labels);
+        pc.createAndUpdateView(content, labels);
         System.out.println();
     }
 
@@ -170,7 +186,7 @@ public class App {
     public static void getPostById() {
         System.out.println("Enter id");
         String id = scanner.nextLine();
-        pc.getByIdAndPrint(id);
+        pc.getByIdAndUpdateView(id);
         System.out.println();
     }
 
@@ -189,6 +205,92 @@ public class App {
         System.out.println("Enter id");
         String id = scanner.nextLine();
         pc.delete(id);
+        System.out.println();
+    }
+
+    // WRITER
+
+    public static void chooseActionWriter() {
+        while (!exit) {
+            System.out.println("1. GET\n2. POST\n3. UPDATE\n4. DELETE\n0. BACK");
+            switch (scanner.nextLine()) {
+                case "1":
+                    whichGetWriter();
+                    run();
+                    break;
+                case "2":
+                    createWriter();
+                    run();
+                    break;
+                case "3":
+                    updateWriter();
+                    run();
+                    break;
+                case "4":
+                    deleteWriter();
+                    run();
+                    break;
+                case"0":
+                    run();
+                    break;
+                default:
+                    System.out.println("Sorry, try again");
+            }
+        }
+    }
+
+    public static void createWriter() {
+        System.out.println("Enter first name");
+        String firstName = scanner.nextLine();
+        System.out.println("Enter last name");
+        String lastName = scanner.nextLine();
+        System.out.println("Enter posts using \",\"");
+        List<String> posts = List.of(scanner.nextLine().split(",", 0));
+        System.out.println("Enter labels using \",\"");
+        List<String> labels = List.of(scanner.nextLine().split(",", 0));
+        wc.create(firstName, lastName, posts, labels);
+        System.out.println();
+    }
+
+    public static void whichGetWriter() {
+        System.out.println("1. GET ALL\n2. GET BY ID");
+        String id = scanner.nextLine();
+        if (Objects.equals(id, "1")) {
+            getWriters();
+        } else {
+            getWriterById();
+        }
+    }
+
+    public static void getWriters() {
+        wc.getAll();
+        System.out.println();
+    }
+
+    public static void getWriterById() {
+        System.out.println("Enter id");
+        String id = scanner.nextLine();
+        wc.getByIdAndUpdateView(id);
+        System.out.println();
+    }
+
+    public static void updateWriter() {
+        System.out.println("Enter id");
+        String id = scanner.nextLine();
+        System.out.println("Enter first name");
+        String firstName = scanner.nextLine();
+        System.out.println("Enter last name");
+        String lastName = scanner.nextLine();
+        System.out.println("Enter status");
+        String status = scanner.nextLine();
+        wc.update(id, firstName, lastName, status);
+        System.out.println();
+    }
+
+    public static void deleteWriter() {
+        System.out.println("Enter id");
+        String id = scanner.nextLine();
+        wc.delete(id);
         System.out.println();
     }
 }

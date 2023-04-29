@@ -3,6 +3,7 @@ package com.ricknash.controller;
 import com.ricknash.model.Label;
 import com.ricknash.model.PostStatus;
 import com.ricknash.repository.implementations.AbstractRepository;
+import com.ricknash.repository.implementations.GsonLabelRepositoryImpl;
 import com.ricknash.view.LabelView;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -19,22 +20,27 @@ public class LabelController implements Controller<Label> {
     @NonNull
     private LabelView labelView;
 
-    public void create(String name) {
+    public Label create(String name) {
+        Label alreadyExists = ((GsonLabelRepositoryImpl) labelRepository).getByName(name);
+        if (!Objects.isNull(alreadyExists)) return alreadyExists;
+
         Label label = new Label(name);
         Integer id = UUID.randomUUID().hashCode();
         label.setId(id);
         labelRepository.insert(label);
+        return label;
+    }
 
-        labelView.updateView(label);
+    public void createAndUpdateView(String name) {
+        labelView.updateView(create(name));
     }
 
     public void getAll() {
         List<Label> labels = labelRepository.getAll();
-
         labelView.updateView(labels);
     }
 
-    public void getByIdAndPrint(String id) {
+    public void getByIdAndUpdateView(String id) {
         Label label = getById(id);
         if (Objects.isNull(label)) {
             return;
@@ -53,14 +59,18 @@ public class LabelController implements Controller<Label> {
 
     public void update(String id, String name, String status) {
         Label label = getById(id);
-        if (Objects.isNull(label)) return;
+        if (Objects.isNull(label)) {
+            labelView.updateView("There is no label with id: " + id);
+            return;
+        }
 
         PostStatus newStatus = PostStatus.fromValue(status);
-        if (newStatus == null) return;
+        if (newStatus == null) {
+            labelView.updateView("Status id is null");
+        }
 
         Label updatedLabel = new Label(Integer.valueOf(id), name, newStatus);
         labelRepository.update(label, updatedLabel);
-
         labelView.updateView(updatedLabel);
     }
 

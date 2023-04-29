@@ -11,4 +11,11 @@ public class GsonLabelRepositoryImpl extends AbstractRepository<Label> implement
     public GsonLabelRepositoryImpl(String filePath) {
         super(filePath, new TypeToken<List<Label>>(){});
     }
+
+    public Label getByName(String name) {
+        return getAll().stream()
+                .filter(e -> e.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
 }
