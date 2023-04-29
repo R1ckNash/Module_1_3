@@ -23,9 +23,8 @@ public class PostController implements Controller<Post> {
     @NonNull
     private PostView postView;
     @NonNull
-    private Controller<Label> lc;
+    private LabelController lc;
 
-    @Override
     public Post create(String content, List<String> labels) {
         String created = OffsetDateTime.now().toString();
         List<Label> newLabels = labels.stream()
@@ -39,7 +38,6 @@ public class PostController implements Controller<Post> {
         return post;
     }
 
-    @Override
     public void createAndUpdateView(String content, List<String> labels) {
         postView.updateView(create(content, labels));
     }

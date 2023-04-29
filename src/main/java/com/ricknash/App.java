@@ -24,9 +24,9 @@ public class App {
 
     static Scanner scanner = new Scanner(System.in);
     static boolean exit = false;
-    static Controller<Label> lc = new LabelController(new GsonLabelRepositoryImpl(LABELS), new LabelView());
-    static Controller<Post> pc = new PostController(new GsonPostRepositoryImpl(POSTS), new PostView(), lc);
-    static Controller<Writer> wc = new WriterController(new GsonWriterRepositoryImpl(WRITERS), new WriterView(), pc);
+    static LabelController lc = new LabelController(new GsonLabelRepositoryImpl(LABELS), new LabelView());
+    static PostController pc = new PostController(new GsonPostRepositoryImpl(POSTS), new PostView(), lc);
+    static WriterController wc = new WriterController(new GsonWriterRepositoryImpl(WRITERS), new WriterView(), pc);
 
     public static void main(String[] args) {
         System.out.println("Hello World!");

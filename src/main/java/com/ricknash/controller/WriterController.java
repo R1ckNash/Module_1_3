@@ -21,7 +21,7 @@ public class WriterController implements Controller<Writer> {
     @NonNull
     private WriterView writerView;
     @NonNull
-    private Controller<Post> pc;
+    private PostController pc;
 
     public void create(String firstName, String lastName, List<String> posts, List<String> labels) {
         List<Post> newPosts = posts.stream()
