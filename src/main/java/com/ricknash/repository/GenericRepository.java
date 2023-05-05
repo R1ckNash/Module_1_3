@@ -1,4 +1,4 @@
-package com.ricknash.repository.interfaces;
+package com.ricknash.repository;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ public interface GenericRepository<T, ID> {
 
     T getById(Integer id);
 
-    void insert(T entity);
+    T insert(T entity);
 
-    void update(T oldEntity, T newEntity);
+    T update(T newEntity);
 
     void deleteById(Integer id);
 }

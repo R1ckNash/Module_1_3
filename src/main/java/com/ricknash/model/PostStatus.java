@@ -7,7 +7,7 @@ public enum PostStatus {
     DELETED("DELETED"),
     INVALID("INVALID");
 
-    private String status;
+    private final String status;
 
     PostStatus(String status) {
         this.status = status;

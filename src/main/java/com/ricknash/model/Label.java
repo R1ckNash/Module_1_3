@@ -3,14 +3,11 @@ package com.ricknash.model;
 import lombok.*;
 
 @Data
-@RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Label implements Identifiable {
 
     private Integer id;
-
-    @NonNull
     private String name;
-
-    private PostStatus status = PostStatus.ACTIVE;
+    private PostStatus status;
 }

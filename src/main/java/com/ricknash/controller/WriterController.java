@@ -3,7 +3,7 @@ package com.ricknash.controller;
 import com.ricknash.model.Post;
 import com.ricknash.model.PostStatus;
 import com.ricknash.model.Writer;
-import com.ricknash.repository.implementations.AbstractRepository;
+import com.ricknash.repository.gson.AbstractRepository;
 import com.ricknash.view.WriterView;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class WriterController implements Controller<Writer> {
+public class WriterController {
 
     @NonNull
     private AbstractRepository<Writer> writerRepository;
@@ -27,20 +27,23 @@ public class WriterController implements Controller<Writer> {
         List<Post> newPosts = posts.stream()
                 .map(p -> pc.create(p, labels))
                 .collect(Collectors.toList());
-        Writer writer = new Writer(firstName, lastName, newPosts);
-        Integer id = UUID.randomUUID().hashCode();
-        writer.setId(id);
+
+        Writer writer = Writer.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .posts(newPosts)
+                .status(PostStatus.ACTIVE)
+                .build();
+
         writerRepository.insert(writer);
         writerView.updateView(writer);
     }
 
-    @Override
     public void getAll() {
         List<Writer> writers = writerRepository.getAll();
         writerView.updateView(writers);
     }
 
-    @Override
     public void getByIdAndUpdateView(String id) {
         Writer writer = getById(id);
         if (Objects.isNull(writer)) {
@@ -49,7 +52,6 @@ public class WriterController implements Controller<Writer> {
         writerView.updateView(writer);
     }
 
-    @Override
     public Writer getById(String id) {
         try {
             return writerRepository.getById(Integer.valueOf(id));
@@ -78,11 +80,10 @@ public class WriterController implements Controller<Writer> {
                 writer.getPosts(),
                 newStatus);
 
-        writerRepository.update(writer, updatedWriter);
+        writerRepository.update(updatedWriter);
         writerView.updateView(updatedWriter);
     }
 
-    @Override
     public void delete(String id) {
         Writer writer = getById(id);
         if (Objects.isNull(writer)) {

@@ -4,12 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c784a037-26b1-4818-91b2-fe309cbbc4ff" name="Changes" comment="add full functional for writer">
+    <list default="true" id="c784a037-26b1-4818-91b2-fe309cbbc4ff" name="Changes" comment="small ref">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/view/MainView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/LabelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/LabelController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/PostController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/WriterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/controller/WriterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Label.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Label.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/model/PostStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/PostStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/model/Writer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/AbstractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/gson/AbstractRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/GsonLabelRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/gson/GsonLabelRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/GsonPostRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/gson/GsonPostRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/implementations/GsonWriterRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/gson/GsonWriterRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/GenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/GenericRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/LabelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/LabelRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/interfaces/WriterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ricknash/repository/WriterRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ricknash/AppTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +36,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -153,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682800014824</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="small ref">
+      <created>1682800716511</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1682800716511</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -206,6 +229,7 @@
     <MESSAGE value="add full functional for label" />
     <MESSAGE value="add full functional for post" />
     <MESSAGE value="add full functional for writer" />
-    <option name="LAST_COMMIT_MESSAGE" value="add full functional for writer" />
+    <MESSAGE value="small ref" />
+    <option name="LAST_COMMIT_MESSAGE" value="small ref" />
   </component>
 </project>

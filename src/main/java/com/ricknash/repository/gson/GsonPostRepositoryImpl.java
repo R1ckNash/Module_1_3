@@ -1,8 +1,8 @@
-package com.ricknash.repository.implementations;
+package com.ricknash.repository.gson;
 
 import com.google.gson.reflect.TypeToken;
 import com.ricknash.model.Post;
-import com.ricknash.repository.interfaces.PostRepository;
+import com.ricknash.repository.PostRepository;
 
 import java.util.List;
 

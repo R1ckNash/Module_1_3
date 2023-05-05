@@ -2,8 +2,8 @@ package com.ricknash.controller;
 
 import com.ricknash.model.Label;
 import com.ricknash.model.PostStatus;
-import com.ricknash.repository.implementations.AbstractRepository;
-import com.ricknash.repository.implementations.GsonLabelRepositoryImpl;
+import com.ricknash.repository.gson.AbstractRepository;
+import com.ricknash.repository.gson.GsonLabelRepositoryImpl;
 import com.ricknash.view.LabelView;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-public class LabelController implements Controller<Label> {
+public class LabelController {
 
     @NonNull
     private AbstractRepository<Label> labelRepository;
@@ -24,9 +24,11 @@ public class LabelController implements Controller<Label> {
         Label alreadyExists = ((GsonLabelRepositoryImpl) labelRepository).getByName(name);
         if (!Objects.isNull(alreadyExists)) return alreadyExists;
 
-        Label label = new Label(name);
-        Integer id = UUID.randomUUID().hashCode();
-        label.setId(id);
+        Label label = Label.builder()
+                .name(name)
+                .status(PostStatus.ACTIVE)
+                .build();
+
         labelRepository.insert(label);
         return label;
     }
@@ -70,7 +72,7 @@ public class LabelController implements Controller<Label> {
         }
 
         Label updatedLabel = new Label(Integer.valueOf(id), name, newStatus);
-        labelRepository.update(label, updatedLabel);
+        labelRepository.update(updatedLabel);
         labelView.updateView(updatedLabel);
     }
 

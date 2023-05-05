@@ -1,28 +1,22 @@
 package com.ricknash.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 
 @Data
-@RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Writer implements Identifiable {
 
     private Integer id;
-
-    @NonNull
     private String firstName;
-
-    @NonNull
     private String lastName;
-
-    @NonNull
     private List<Post> posts;
-
-    private PostStatus status = PostStatus.ACTIVE;
+    private PostStatus status;
 }

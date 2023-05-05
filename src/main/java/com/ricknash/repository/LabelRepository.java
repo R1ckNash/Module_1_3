@@ -1,4 +1,4 @@
-package com.ricknash.repository.interfaces;
+package com.ricknash.repository;
 
 import com.ricknash.model.Label;
 

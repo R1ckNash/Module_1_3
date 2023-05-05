@@ -1,10 +1,8 @@
-package com.ricknash.repository.implementations;
+package com.ricknash.repository.gson;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.ricknash.model.Writer;
-import com.ricknash.repository.interfaces.WriterRepository;
+import com.ricknash.repository.WriterRepository;
 
 import java.util.List;
 

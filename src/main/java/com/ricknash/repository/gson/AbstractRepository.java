@@ -1,10 +1,10 @@
-package com.ricknash.repository.implementations;
+package com.ricknash.repository.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.ricknash.model.Identifiable;
-import com.ricknash.repository.interfaces.GenericRepository;
+import com.ricknash.repository.GenericRepository;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,13 +12,14 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 public abstract class AbstractRepository<T> implements GenericRepository<T, Integer> {
 
-    File file;
+    private final File file;
     private final Gson objectMapper;
-    TypeToken<List<T>> targetClassType;
+    private final TypeToken<List<T>> targetClassType;
 
     AbstractRepository(String filePath, TypeToken<List<T>> token) {
         this.file = new File(filePath);
@@ -34,20 +35,35 @@ public abstract class AbstractRepository<T> implements GenericRepository<T, Inte
         }
     }
 
-    public void insert(T entity) {
-        List<T> entities = getAll();
+    private Integer generateId(List<T> entities) {
+        OptionalInt max = entities.stream().mapToInt(e -> ((Identifiable) e).getId()).max();
+        if (max.isEmpty()) {
+            return 1;
+        }
+        return max.getAsInt() + 1;
+    }
+
+    public T insert(T entity) {
+        List<T> entities = getAllItemsFromTheFile();
+        Integer newId = generateId(entities);
+        ((Identifiable) entity).setId(newId);
         entities.add(entity);
-        save(entities);
+        saveToFile(entities);
+        return entity;
     }
 
-    public void update(T oldEntity, T newEntity) {
-        List<T> entities = getAll();
-        int index = entities.indexOf(oldEntity);
-        entities.set(index, newEntity);
-        save(entities);
+    public T update(T newEntity) {
+        List<T> updatedList = getAllItemsFromTheFile().stream().map(e -> {
+            if (((Identifiable) e).getId().equals(((Identifiable) newEntity).getId())) {
+                return newEntity;
+            }
+            return e;
+        }).collect(Collectors.toList());
+        saveToFile(updatedList);
+        return newEntity;
     }
 
-    private void save(List<T> entities) {
+    private void saveToFile(List<T> entities) {
         try {
             String data = objectMapper.toJson(entities);
             Files.writeString(file.toPath(), data);
@@ -57,6 +73,10 @@ public abstract class AbstractRepository<T> implements GenericRepository<T, Inte
     }
 
     public List<T> getAll() {
+        return getAllItemsFromTheFile();
+    }
+
+    private List<T> getAllItemsFromTheFile() {
         try {
             String data = new String(Files.readAllBytes(file.toPath()));
             return objectMapper.fromJson(data, targetClassType.getType());
@@ -78,9 +98,8 @@ public abstract class AbstractRepository<T> implements GenericRepository<T, Inte
     }
 
     public void deleteById(Integer id) {
-        List<T> data = getAll().stream()
-                .filter(d -> !((Identifiable)d).getId().equals(id))
-                .collect(Collectors.toList());
-        save(data);
+        List<T> data = getAllItemsFromTheFile();
+        data.removeIf(d -> !((Identifiable) d).getId().equals(id));
+        saveToFile(data);
     }
 }

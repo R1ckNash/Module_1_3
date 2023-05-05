@@ -1,8 +1,8 @@
-package com.ricknash.repository.implementations;
+package com.ricknash.repository.gson;
 
 import com.google.gson.reflect.TypeToken;
 import com.ricknash.model.Label;
-import com.ricknash.repository.interfaces.LabelRepository;
+import com.ricknash.repository.LabelRepository;
 
 import java.util.List;
 
